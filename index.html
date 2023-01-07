@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Larissa & Wesley - Story</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="scripts/app.js" defer></script>
+    <script src="scripts/alpine.js" defer></script>
+</head>
+<body>
+    <main class="app" x-data="app" @click="next">
+        <div class="slides">
+            <template x-for="(slide, index) in slides">
+                <div
+                    class="slide"
+                    :style="{ zIndex: (slides.length - index) }"
+                    x-show="currentIndex === index"
+                    x-transition.opacity.duration.1000ms
+                >
+                    <div
+                        class="scene"
+                        x-show="slide.image"
+                        :style="{ backgroundImage: `url(${slide.image})` }"
+                    ></div>
+                </div>
+            </template>
+        </div>
+
+        <div class="footer">
+            <ul class="captions">
+                <template x-for="(text, index) in slide.texts">
+                    <li class="caption" x-text="text"></li>
+                </template>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
