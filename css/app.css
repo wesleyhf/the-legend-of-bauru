@@ -41,12 +41,6 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
-    mix-blend-mode: multiply;
-}
-
-.scene {
-    width: 100%;
-    height: 100%;
 
     /* background-image: url(...); set by js */
     background-repeat: no-repeat;
