@@ -12,7 +12,7 @@
 </head>
 <body>
     <main class="app" x-data="app" @click="next">
-        <div class="slides">
+        <div class="slides" x-show="slide.image">
             <template x-for="(slide, index) in slides">
                 <div
                     class="slide"
@@ -22,8 +22,9 @@
                 >
                     <div
                         class="scene"
-                        x-show="slide.image"
+                        :class="getSceneClass(slide)"
                         :style="getSceneStyle(slide)"
+                        x-show="slide.image"
                     ></div>
                 </div>
             </template>

@@ -2,46 +2,46 @@ const app = {
     slides: [
         {
             image: null,
-            animationDuration: null,
+            orientation: null,
+            animationDurationInSeconds: null,
             texts: [
                 'Você está pronto para uma aventura?',
             ],
-            auto: false,
         },
         {
             image: 'imgs/scene-1.png',
-            animationDuration: '10s',
+            orientation: 'portrait',
+            animationDurationInSeconds: 10,
             texts: [
                 'A muito tempo atrás, existia um belo e próspero reino, chamado Bauru.',
                 'Onde duas almas estavam predestinadas a se encontrar.',
             ],
-            auto: true,
         },
         {
             image: 'imgs/scene-2.png',
-            animationDuration: null,
+            orientation: 'portrait',
+            animationDurationInSeconds: 10,
             texts: [
                 'Um certo dia, o herói do tempo e a princesa da luz finalmente uniram suas forças.',
                 'Juntos, seus poderes cresceram e eles trouxeram luz para todo o reino.',
             ],
-            auto: true,
         },
         {
             image: 'imgs/scene-3.png',
-            animationDuration: null,
+            orientation: 'portrait',
+            animationDurationInSeconds: 10,
             texts: [
                 'Anos se passaram e eles partiram em busca de aventuras, desbravando novas terras.',
                 'Mas agora eles precisam retornar, para realizar a aventura mais importante de suas vidas!',
             ],
-            auto: true,
         },
         {
             image: null,
-            animationDuration: null,
+            animationDurationInSeconds: null,
+            orientation: null,
             texts: [
                 'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
             ],
-            auto: false,
         },
     ],
 
@@ -55,6 +55,14 @@ const app = {
         }
     },
 
+    getSceneClass(slide) {
+        return {
+            'scene--landscape': slide.orientation === 'landscape',
+            'scene--portrait': slide.orientation === 'portrait',
+            'scene--center': slide.orientation === 'center',
+        };
+    },
+
     getSceneStyle(slide) {
         const style = {};
 
@@ -63,7 +71,7 @@ const app = {
         }
 
         if (slide.animationDuration) {
-            style.animation = `${slide.animationDuration} linear forwards backgroundScrollY`;
+            style.animationDuration = `${slide.animationDurationInSeconds}s`;
         }
 
         return style;
