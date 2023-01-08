@@ -23,7 +23,7 @@
                     <div
                         class="scene"
                         x-show="slide.image"
-                        :style="{ backgroundImage: `url(${slide.image})` }"
+                        :style="getSceneStyle(slide)"
                     ></div>
                 </div>
             </template>
