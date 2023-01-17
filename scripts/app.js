@@ -4,7 +4,7 @@ const app = {
             image: null,
             orientation: null,
             animationDurationInSeconds: null,
-            texts: [
+            captions: [
                 'Você está pronto para uma aventura?',
             ],
         },
@@ -12,7 +12,7 @@ const app = {
             image: 'imgs/scene-1.png',
             orientation: 'portrait',
             animationDurationInSeconds: 10,
-            texts: [
+            captions: [
                 'A muito tempo atrás, existia um belo e próspero reino, chamado Bauru.',
                 'Onde duas almas estavam predestinadas a se encontrar.',
             ],
@@ -21,7 +21,7 @@ const app = {
             image: 'imgs/scene-2.png',
             orientation: 'portrait',
             animationDurationInSeconds: 10,
-            texts: [
+            captions: [
                 'Um certo dia, o herói do tempo e a princesa da luz finalmente uniram suas forças.',
                 'Juntos, seus poderes cresceram e eles trouxeram luz para todo o reino.',
             ],
@@ -30,7 +30,7 @@ const app = {
             image: 'imgs/scene-3.png',
             orientation: 'portrait',
             animationDurationInSeconds: 10,
-            texts: [
+            captions: [
                 'Anos se passaram e eles partiram em busca de aventuras, desbravando novas terras.',
                 'Mas agora eles precisam retornar, para realizar a aventura mais importante de suas vidas!',
             ],
@@ -39,19 +39,33 @@ const app = {
             image: null,
             animationDurationInSeconds: null,
             orientation: null,
-            texts: [
+            captions: [
                 'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
             ],
         },
     ],
 
-    currentIndex: 0,
+    currentSlideIndex: 0,
+    currentCaptionIndex: -1,
     slide: null,
 
     next() {
-        if (this.currentIndex < (this.slides.length - 1)) {
-            this.currentIndex++;
-            this.slide = this.slides[this.currentIndex];
+        if (this.currentSlideIndex < (this.slides.length - 1)) {
+            this.currentSlideIndex++;
+            this.slide = this.slides[this.currentSlideIndex];
+
+            const captionDurationInSeconds = this.slide.animationDurationInSeconds / this.slide.captions.length;
+            this.setAutoCaptions(captionDurationInSeconds);
+        }
+    },
+
+    setAutoCaptions(captionDurationInSeconds) {
+        this.currentCaptionIndex++;
+
+        if (this.currentCaptionIndex < (this.slide.captions.length - 1)) {
+            setTimeout(() => {
+                this.setAutoCaptions(captionDurationInSeconds);
+            }, captionDurationInSeconds * 1000);
         }
     },
 
@@ -67,7 +81,7 @@ const app = {
         const style = {};
 
         if (slide.image) {
-            style.backgroundImage =  `url(${slide.image})`;
+            style.backgroundImage = `url(${slide.image})`;
         }
 
         if (slide.animationDuration) {
@@ -78,6 +92,6 @@ const app = {
     },
 
     init() {
-        this.slide = this.slides[this.currentIndex];
+        this.slide = this.slides[this.currentSlideIndex];
     },
 };

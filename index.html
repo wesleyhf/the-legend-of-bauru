@@ -17,7 +17,7 @@
                 <div
                     class="slide"
                     :style="{ zIndex: (slides.length - index) }"
-                    x-show="currentIndex === index"
+                    x-show="currentSlideIndex === index"
                     x-transition.opacity.duration.1000ms
                 >
                     <div
@@ -32,8 +32,13 @@
 
         <div class="footer">
             <ul class="captions">
-                <template x-for="(text, index) in slide.texts">
-                    <li class="caption" x-text="text"></li>
+                <template x-for="(caption, index) in slide.captions">
+                    <li
+                        class="caption"
+                        x-text="caption"
+                        x-show="currentCaptionIndex === index"
+                        x-transition.opacity.duration.3000ms
+                    ></li>
                 </template>
             </ul>
         </div>
