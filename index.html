@@ -12,18 +12,18 @@
 </head>
 <body>
     <main class="app" x-data="app">
-        <div class="scenes">
-            <template x-for="(scene, index) in scenes">
-                <div
-                    class="scene"
-                    :style="{ backgroundImage: `url(${scene})` }"
-                    x-show="sceneIndex === index"
-                    x-transition.opacity.duration.2000ms
-                ></div>
-            </template>
-        </div>
+        <div class="screen">
+            <div class="scenes">
+                <template x-for="(scene, index) in scenes">
+                    <div
+                        class="scene"
+                        :style="{ backgroundImage: `url(${scene})` }"
+                        x-show="sceneIndex === index"
+                        x-transition.opacity.duration.2000ms
+                    ></div>
+                </template>
+            </div>
 
-        <div class="footer">
             <ul class="captions">
                 <template x-for="(caption, index) in captions">
                     <li
