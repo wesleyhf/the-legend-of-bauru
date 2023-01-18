@@ -16,8 +16,7 @@ const app = {
     //     },
     // ],
 
-    // sceneDurationInMilliseconds: 10000, // 10s
-    sceneDurationInMilliseconds: 5000, // 10s
+    sceneDurationInMilliseconds: 10000, // 10s
 
     sceneIndex: -1,
     scenes: [
@@ -36,31 +35,34 @@ const app = {
         'Mas agora eles precisam retornar, para realizar a aventura mais importante de suas vidas!',
     ],
 
-    startStory() {
-        this.nextScene(this.sceneDurationInMilliseconds);
-        this.nextCaption(this.sceneDurationInMilliseconds / 2);
+    async startStory() {
+        console.log('start');
+
+        // loop through scenes
+        const scenesPromise = this.setInterval(() => {
+            this.sceneIndex++;
+            return this.sceneIndex < (this.scenes.length - 1);
+        }, this.sceneDurationInMilliseconds);
+
+        // loop through captions
+        const captionsPromise = this.setInterval(() => {
+            this.captionIndex++;
+            return this.captionIndex < (this.captions.length - 1);
+        }, this.sceneDurationInMilliseconds / 2);
+
+        await Promise.all([scenesPromise, captionsPromise]);
+
+        console.log('finish');
     },
 
-    nextScene(timeoutInMilliseconds) {
-        this.sceneIndex++;
-
-        if (this.sceneIndex < (this.scenes.length - 1)) {
+    setInterval(callback, timeoutInMilliseconds) {
+        return new Promise(resolve => {
+            const hasNexTick = callback();
             setTimeout(
-                () => this.nextScene(timeoutInMilliseconds),
+                () => resolve(hasNexTick ? this.setInterval(callback, timeoutInMilliseconds) : true),
                 timeoutInMilliseconds
-            );
-        }
-    },
-
-    nextCaption(timeoutInMilliseconds) {
-        this.captionIndex++;
-
-        if (this.captionIndex < (this.captions.length - 1)) {
-            setTimeout(
-                () => this.nextCaption(timeoutInMilliseconds),
-                timeoutInMilliseconds
-            );
-        }
+            )
+        });
     },
 
     init() {

@@ -11,7 +11,7 @@
     <script src="scripts/alpine.js" defer></script>
 </head>
 <body>
-    <main class="app" x-data="app" @click="next">
+    <main class="app" x-data="app">
         <div class="slides">
             <template x-for="(scene, index) in scenes">
                 <div
@@ -32,7 +32,7 @@
                         class="caption"
                         x-text="caption"
                         x-show="captionIndex === index"
-                        x-transition.opacity.duration.3000ms
+                        x-transition.opacity.duration.2000ms
                     ></li>
                 </template>
             </ul>
