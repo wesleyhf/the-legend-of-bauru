@@ -26,7 +26,7 @@ body {
     flex-direction: column;
 }
 
-.slides {
+.scenes {
     width: 100%;
     height: 80%;
 
@@ -37,17 +37,12 @@ body {
     background-blend-mode: multiply;
 }
 
-.slide {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    mix-blend-mode: multiply;
-}
-
 .scene {
     width: 100%;
     height: 100%;
     padding: 0 2rem;
+    position: absolute;
+    mix-blend-mode: multiply;
 
     /* background-image: url(...); set by js */
     background-origin: content-box;

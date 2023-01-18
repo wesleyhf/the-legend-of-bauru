@@ -12,16 +12,14 @@
 </head>
 <body>
     <main class="app" x-data="app">
-        <div class="slides">
+        <div class="scenes">
             <template x-for="(scene, index) in scenes">
                 <div
-                    class="slide"
-                    :style="{ zIndex: (scenes.length - index) }"
+                    class="scene"
+                    :style="{ backgroundImage: `url(${scene})` }"
                     x-show="sceneIndex === index"
-                    x-transition.opacity.duration.1000ms
-                >
-                    <div class="scene" :style="{ backgroundImage: `url(${scene})` }"></div>
-                </div>
+                    x-transition.opacity.duration.2000ms
+                ></div>
             </template>
         </div>
 

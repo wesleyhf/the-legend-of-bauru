@@ -16,7 +16,7 @@ const app = {
     //     },
     // ],
 
-    sceneDurationInMilliseconds: 10000, // 10s
+    sceneDurationInMilliseconds: 3000, // 10s
 
     sceneIndex: -1,
     scenes: [
