@@ -11,7 +11,7 @@ const app = {
         {
             image: 'imgs/scene-1.png',
             orientation: 'portrait',
-            animationDurationInSeconds: 10,
+            animationDurationInSeconds: 15,
             captions: [
                 'A muito tempo atrás, existia um belo e próspero reino, chamado Bauru.',
                 'Onde duas almas estavam predestinadas a se encontrar.',
@@ -45,27 +45,36 @@ const app = {
         },
     ],
 
+    slide: null,
     currentSlideIndex: 0,
     currentCaptionIndex: -1,
-    slide: null,
+    captionTimeOutId: null,
 
     next() {
         if (this.currentSlideIndex < (this.slides.length - 1)) {
             this.currentSlideIndex++;
             this.slide = this.slides[this.currentSlideIndex];
 
-            const captionDurationInSeconds = this.slide.animationDurationInSeconds / this.slide.captions.length;
-            this.setAutoCaptions(captionDurationInSeconds);
+            this.setAutoCaptions(this.slide);
         }
     },
 
-    setAutoCaptions(captionDurationInSeconds) {
+    setAutoCaptions(slide) {
+        // reset caption
+        this.currentCaptionIndex = -1;
+        clearTimeout(this.captionTimeOutId);
+
+        const captionDurationInMilliseconds = (slide.animationDurationInSeconds / slide.captions.length) * 1000;
+        this.setCaptionsTimeout(captionDurationInMilliseconds);
+    },
+
+    setCaptionsTimeout(captionDurationInMilliseconds ) {
         this.currentCaptionIndex++;
 
         if (this.currentCaptionIndex < (this.slide.captions.length - 1)) {
-            setTimeout(() => {
-                this.setAutoCaptions(captionDurationInSeconds);
-            }, captionDurationInSeconds * 1000);
+            this.captionTimeOutId = setTimeout(() => {
+                this.setCaptionsTimeout(captionDurationInMilliseconds);
+            }, captionDurationInMilliseconds);
         }
     },
 
@@ -84,7 +93,7 @@ const app = {
             style.backgroundImage = `url(${slide.image})`;
         }
 
-        if (slide.animationDuration) {
+        if (slide.animationDurationInSeconds) {
             style.animationDuration = `${slide.animationDurationInSeconds}s`;
         }
 
