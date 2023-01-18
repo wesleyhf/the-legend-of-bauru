@@ -47,41 +47,16 @@ body {
 .scene {
     width: 100%;
     height: 100%;
+    padding: 0 2rem;
 
     /* background-image: url(...); set by js */
     background-origin: content-box;
-    background-repeat: no-repeat;
-    mix-blend-mode: multiply;
-}
-
-.scene--center {
-    padding: 2rem;
-    background-size: contain;
-    background-position: center;
-}
-
-.scene--portrait {
-    padding: 0 2rem;
     background-position: center -10%;
+    background-repeat: no-repeat;
     background-size: 100% auto;
+    mix-blend-mode: multiply;
+
     animation: 10s linear forwards backgroundScrollY;
-}
-
-.scene--landscape {
-    padding: 2rem 0;
-    background-position: -10% center;
-    background-size: auto 100%;
-    animation: 10s linear forwards backgroundScrollX;
-}
-
-@keyframes backgroundScrollX {
-    from {
-        background-position: -10% center;
-    }
-
-    to {
-        background-position: 110% center;
-    }
 }
 
 @keyframes backgroundScrollY {

@@ -2,7 +2,6 @@ const app = {
     slides: [
         {
             image: null,
-            orientation: null,
             animationDurationInSeconds: null,
             captions: [
                 'Você está pronto para uma aventura?',
@@ -10,7 +9,6 @@ const app = {
         },
         {
             image: 'imgs/scene-1.png',
-            orientation: 'portrait',
             animationDurationInSeconds: 15,
             captions: [
                 'A muito tempo atrás, existia um belo e próspero reino, chamado Bauru.',
@@ -19,7 +17,6 @@ const app = {
         },
         {
             image: 'imgs/scene-2.png',
-            orientation: 'portrait',
             animationDurationInSeconds: 10,
             captions: [
                 'Um certo dia, o herói do tempo e a princesa da luz finalmente uniram suas forças.',
@@ -28,7 +25,6 @@ const app = {
         },
         {
             image: 'imgs/scene-3.png',
-            orientation: 'portrait',
             animationDurationInSeconds: 10,
             captions: [
                 'Anos se passaram e eles partiram em busca de aventuras, desbravando novas terras.',
@@ -38,7 +34,6 @@ const app = {
         {
             image: null,
             animationDurationInSeconds: null,
-            orientation: null,
             captions: [
                 'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
             ],
@@ -76,14 +71,6 @@ const app = {
                 this.setCaptionsTimeout(captionDurationInMilliseconds);
             }, captionDurationInMilliseconds);
         }
-    },
-
-    getSceneClass(slide) {
-        return {
-            'scene--landscape': slide.orientation === 'landscape',
-            'scene--portrait': slide.orientation === 'portrait',
-            'scene--center': slide.orientation === 'center',
-        };
     },
 
     getSceneStyle(slide) {
