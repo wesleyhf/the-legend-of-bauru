@@ -95,3 +95,65 @@ body {
 .caption {
     position: absolute;
 }
+
+.modal {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: var(--subtitle-bg-color);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.modal__content {
+    color: var(--subtitle-txt-color);
+    font-size: 1.5rem;
+    line-height: 1.5em;
+    list-style: none;
+    text-align: center;
+}
+
+.modal__footer {
+    margin-top: 1rem;
+    display: flex;
+}
+
+.modal__action {
+    background: none;
+    border: none;
+    padding: 0 2rem;
+
+    color: var(--subtitle-txt-color);
+    font-size: 1.5rem;
+    line-height: 1.5em;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+
+    position: relative;
+}
+
+.modal__action::before {
+    content: '>';
+    display: inline-block;
+
+    position: absolute;
+    left: 0;
+
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.modal__action:focus {
+    outline: none;
+}
+
+.modal__action:hover::before,
+.modal__action:focus::before {
+    opacity: 1;
+}

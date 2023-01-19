@@ -35,6 +35,23 @@
                 </template>
             </ul>
         </div>
+
+        <div class="modal" x-show="modal.open">
+            <div class="modal__content">
+                <p x-text="modal.content"></p>
+            </div>
+
+            <div class="modal__footer">
+                <template x-for="(action, index) in modal.actions">
+                    <button
+                        type="button"
+                        class="modal__action"
+                        x-text="action.label"
+                        @click="action.callback"
+                    ></button>
+                </template>
+            </div>
+        </div>
     </main>
 </body>
 </html>

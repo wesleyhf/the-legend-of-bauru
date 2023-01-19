@@ -35,6 +35,21 @@ const app = {
         'Mas agora eles precisam retornar, para realizar a aventura mais importante de suas vidas!',
     ],
 
+    modal: {
+        open: true,
+        content: 'Você está pronto para uma aventura?',
+        actions: [
+            {
+                label: 'Sim',
+                callback: null,
+            },
+            {
+                label: 'Não',
+                callback: null,
+            },
+        ],
+    },
+
     async startStory() {
         console.log('start');
 
@@ -66,6 +81,6 @@ const app = {
     },
 
     init() {
-        this.startStory();
+        // this.startStory();
     },
 };
