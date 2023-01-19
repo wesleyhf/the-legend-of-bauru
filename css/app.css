@@ -17,7 +17,10 @@ body {
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     background: var(--bg-color);
+    user-select: none;
 }
+
+[x-cloak] { display: none !important; }
 
 .app {
     width: 100%;

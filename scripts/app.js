@@ -1,22 +1,5 @@
 const app = {
-    // slides: [
-    //     {
-    //         image: null,
-    //         animationDurationInSeconds: null,
-    //         captions: [
-    //             'Você está pronto para uma aventura?',
-    //         ],
-    //     },
-    //     {
-    //         image: null,
-    //         animationDurationInSeconds: null,
-    //         captions: [
-    //             'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
-    //         ],
-    //     },
-    // ],
-
-    sceneDurationInMilliseconds: 3000, // 10s
+    sceneDurationInMilliseconds: 1000, // 10s
 
     sceneIndex: -1,
     scenes: [
@@ -37,17 +20,18 @@ const app = {
 
     modal: {
         open: true,
-        content: 'Você está pronto para uma aventura?',
-        actions: [
-            {
-                label: 'Sim',
-                callback: null,
-            },
-            {
-                label: 'Não',
-                callback: null,
-            },
-        ],
+        content: null,
+        actions: [],
+    },
+
+    openModal(content, actions) {
+        this.modal.content = content;
+        this.modal.actions = actions;
+        this.modal.open = true;
+    },
+
+    closeModal() {
+        this.modal.open = false;
     },
 
     async startStory() {
@@ -68,6 +52,26 @@ const app = {
         await Promise.all([scenesPromise, captionsPromise]);
 
         console.log('finish');
+
+        this.openModal(
+            'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
+            [
+                {
+                    label: 'Sim',
+                    callback: () => {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const meetId = urlParams.get('id');
+                        window.open(`https://meet.google.com/${meetId}`);
+                    },
+                },
+                {
+                    label: 'Não',
+                    callback: () => {
+                        alert('whoops');
+                    },
+                },
+            ],
+        );
     },
 
     setInterval(callback, timeoutInMilliseconds) {
@@ -81,6 +85,23 @@ const app = {
     },
 
     init() {
-        // this.startStory();
+        this.openModal(
+            'Você está pronto para uma aventura?',
+            [
+                {
+                    label: 'Sim',
+                    callback: () => {
+                        this.closeModal();
+                        this.startStory();
+                    },
+                },
+                {
+                    label: 'Não',
+                    callback: () => {
+                        alert('whoops');
+                    },
+                },
+            ],
+        );
     },
 };

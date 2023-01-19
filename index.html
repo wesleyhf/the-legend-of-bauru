@@ -11,7 +11,7 @@
     <script src="scripts/alpine.js" defer></script>
 </head>
 <body>
-    <main class="app" x-data="app">
+    <main class="app" x-data="app" x-cloak>
         <div class="screen">
             <div class="scenes">
                 <template x-for="(scene, index) in scenes">
@@ -36,7 +36,7 @@
             </ul>
         </div>
 
-        <div class="modal" x-show="modal.open">
+        <div class="modal" x-show="modal.open" x-transition.opacity.duration.1000ms>
             <div class="modal__content">
                 <p x-text="modal.content"></p>
             </div>
