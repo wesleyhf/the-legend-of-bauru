@@ -1,7 +1,13 @@
 const app = {
+    sfxs: {
+        scream: new Audio('sfxs/scream.wav'),
+        listen: new Audio('sfxs/listen.wav'),
+        secret: new Audio('sfxs/secret.wav'),
+    },
+
     themeSong: new Audio('theme.mp3'),
-    screamSound: new Audio('scream.mp3'),
-    sceneDurationInMilliseconds: 20000, // 20s
+
+    sceneDurationInMilliseconds: 1000, // 20s
 
     sceneIndex: -1,
     scenes: [
@@ -38,7 +44,7 @@ const app = {
 
     async startStory() {
         this.closeModal();
-        this.themeSong.play();
+        // this.themeSong.play();
 
         // loop through scenes
         const scenesPromise = this.setInterval(() => {
@@ -61,18 +67,26 @@ const app = {
                 {
                     label: 'Sim',
                     callback: () => {
-                        this.themeSong.pause();
+                        this.sfxs.secret.play();
 
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const meetId = urlParams.get('id');
-                        window.open(`https://meet.google.com/${meetId}`);
+                        this.openModal(
+                            'Você foi escolhido pelo destino, o mundo com certeza ficará bem aos seus cuidados! Mas é perigoso ir sozinho...',
+                            [
+                                {
+                                    label: 'Pegue isto 🗡️',
+                                    callback: () => {
+                                        this.themeSong.pause();
+                                        this.openGoogleMeet();
+                                    },
+                                },
+                            ],
+                        );
                     },
                 },
                 {
                     label: 'Não',
                     callback: () => {
-                        this.screamSound.play();
-                        alert('whoops');
+                        this.sfxs.scream.play();
                     },
                 },
             ],
@@ -89,13 +103,20 @@ const app = {
         });
     },
 
+    openGoogleMeet() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const meetId = urlParams.get('id');
+        window.open(`https://meet.google.com/${meetId}`);
+    },
+
     init() {
         this.openModal(
             'Você está pronto para uma aventura?',
             [
                 {
-                    label: 'Sim',
+                    label: 'Sim ❤️',
                     callback: () => {
+                        this.sfxs.listen.play();
                         this.startStory();
                     },
                 },
