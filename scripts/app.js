@@ -1,6 +1,6 @@
 const app = {
     themeSong: null,
-    sceneDurationInMilliseconds: 20000, // 20s
+    sceneDurationInMilliseconds: 2000, // 20s
 
     sceneIndex: -1,
     scenes: [
@@ -36,9 +36,8 @@ const app = {
     },
 
     async startStory() {
-        console.log('start');
-
-        this.themeSong.play();
+        this.closeModal();
+        // this.themeSong.play();
 
         // loop through scenes
         const scenesPromise = this.setInterval(() => {
@@ -52,9 +51,8 @@ const app = {
             return this.captionIndex < (this.captions.length - 1);
         }, this.sceneDurationInMilliseconds / 2);
 
+        // wait scenes and captions
         await Promise.all([scenesPromise, captionsPromise]);
-
-        console.log('finish');
 
         this.openModal(
             'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
@@ -98,14 +96,13 @@ const app = {
                 {
                     label: 'Sim',
                     callback: () => {
-                        this.closeModal();
                         this.startStory();
                     },
                 },
                 {
-                    label: 'Não',
+                    label: 'Com certeza!',
                     callback: () => {
-                        alert('whoops');
+                        this.startStory();
                     },
                 },
             ],
