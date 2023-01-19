@@ -20,7 +20,9 @@ body {
     user-select: none;
 }
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+    display: none !important;
+}
 
 .app {
     width: 100%;
@@ -61,7 +63,7 @@ body {
     background-size: 100% auto;
     mix-blend-mode: multiply;
 
-    animation: 10s linear forwards backgroundScrollY;
+    animation: 20s linear forwards backgroundScrollY;
 }
 
 @keyframes backgroundScrollY {

@@ -1,5 +1,6 @@
 const app = {
-    sceneDurationInMilliseconds: 1000, // 10s
+    themeSong: null,
+    sceneDurationInMilliseconds: 20000, // 20s
 
     sceneIndex: -1,
     scenes: [
@@ -37,6 +38,8 @@ const app = {
     async startStory() {
         console.log('start');
 
+        this.themeSong.play();
+
         // loop through scenes
         const scenesPromise = this.setInterval(() => {
             this.sceneIndex++;
@@ -59,6 +62,8 @@ const app = {
                 {
                     label: 'Sim',
                     callback: () => {
+                        this.themeSong.pause();
+
                         const urlParams = new URLSearchParams(window.location.search);
                         const meetId = urlParams.get('id');
                         window.open(`https://meet.google.com/${meetId}`);
@@ -85,6 +90,8 @@ const app = {
     },
 
     init() {
+        this.themeSong = new Audio('theme.mp3');
+
         this.openModal(
             'Você está pronto para uma aventura?',
             [
