@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Larissa & Wesley - Story</title>
+    <title>The Legend of Bauru ❤️</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sniglet">
     <link rel="stylesheet" href="css/app.css">
     <script src="scripts/app.js" defer></script>
@@ -36,20 +36,27 @@
             </ul>
         </div>
 
-        <div class="modal" x-show="modal.open" x-transition.opacity.duration.1000ms>
+        <div class="modal" x-show="confirmModal.open" x-transition.opacity.duration.1000ms>
             <div class="modal__content">
-                <p x-text="modal.content"></p>
+                <p x-text="confirmModal.message"></p>
             </div>
 
             <div class="modal__footer">
-                <template x-for="(action, index) in modal.actions">
-                    <button
-                        type="button"
-                        class="modal__action"
-                        x-text="action.label"
-                        @click="action.callback"
-                    ></button>
-                </template>
+                <button
+                    type="button"
+                    class="modal__action"
+                    x-show="confirmModal.okLabel"
+                    x-text="confirmModal.okLabel"
+                    @click="confirmModal.callback(true)"
+                ></button>
+
+                <button
+                    type="button"
+                    class="modal__action"
+                    x-show="confirmModal.cancelLabel"
+                    x-text="confirmModal.cancelLabel"
+                    @click="confirmModal.callback(false)"
+                ></button>
             </div>
         </div>
     </main>

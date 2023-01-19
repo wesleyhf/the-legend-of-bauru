@@ -26,25 +26,34 @@ const app = {
         'Mas agora eles precisam retornar, para realizar a aventura mais importante de suas vidas!',
     ],
 
-    modal: {
+    confirmModal: {
         open: true,
-        content: null,
-        actions: [],
+        message: null,
+        okLabel: null,
+        cancelLabel: null,
+        callback: null,
     },
 
-    openModal(content, actions) {
-        this.modal.content = content;
-        this.modal.actions = actions;
-        this.modal.open = true;
+    openConfirmModal(message, okLabel, cancelLabel) {
+        this.confirmModal.message = message;
+        this.confirmModal.okLabel = okLabel;
+        this.confirmModal.cancelLabel = cancelLabel;
+        this.confirmModal.open = true;
+
+        return new Promise(resolve => {
+            this.confirmModal.callback = resolve;
+        });
     },
 
-    closeModal() {
-        this.modal.open = false;
+    closeConfirmModal() {
+        this.confirmModal.open = false;
+        this.confirmModal.callback = null;
     },
 
     async startStory() {
-        this.closeModal();
+        this.sfxs.listen.play();
         // this.themeSong.play();
+        this.closeConfirmModal();
 
         // loop through scenes
         const scenesPromise = this.setInterval(() => {
@@ -58,39 +67,27 @@ const app = {
             return this.captionIndex < (this.captions.length - 1);
         }, this.sceneDurationInMilliseconds / 2);
 
-        // wait scenes and captions
+        // wait scenes and captions to finish
         await Promise.all([scenesPromise, captionsPromise]);
 
-        this.openModal(
+        const areYouReady = await this.openConfirmModal(
             'Mas eles precisam de heróis corajosos e destemidos para ajudar nessa jornada. Heróis como você! Você está preparado para essa aventura?',
-            [
-                {
-                    label: 'Sim',
-                    callback: () => {
-                        this.sfxs.secret.play();
-
-                        this.openModal(
-                            'Você foi escolhido pelo destino, o mundo com certeza ficará bem aos seus cuidados! Mas é perigoso ir sozinho...',
-                            [
-                                {
-                                    label: 'Pegue isto 🗡️',
-                                    callback: () => {
-                                        this.themeSong.pause();
-                                        this.openGoogleMeet();
-                                    },
-                                },
-                            ],
-                        );
-                    },
-                },
-                {
-                    label: 'Não',
-                    callback: () => {
-                        this.sfxs.scream.play();
-                    },
-                },
-            ],
+            'Sim ❤️',
+            'Não',
         );
+
+        let finalMessage = '';
+
+        if (areYouReady) {
+            this.sfxs.secret.play();
+            finalMessage = 'Você foi escolhido pelo destino, o mundo com certeza ficará bem aos seus cuidados! Mas é perigoso ir sozinho...';
+        } else {
+            this.sfxs.scream.play();
+            finalMessage = 'Não tema! Você foi escolhido pelo destino. Não duvide da suas capacidades, você está preparado para isso! Mas é perigoso ir sozinho...';
+        }
+
+        await this.openConfirmModal(finalMessage, 'Pegue isto 🗡️');
+        this.openGoogleMeet();
     },
 
     setInterval(callback, timeoutInMilliseconds) {
@@ -109,24 +106,13 @@ const app = {
         window.open(`https://meet.google.com/${meetId}`);
     },
 
-    init() {
-        this.openModal(
+    async init() {
+        await this.openConfirmModal(
             'Você está pronto para uma aventura?',
-            [
-                {
-                    label: 'Sim ❤️',
-                    callback: () => {
-                        this.sfxs.listen.play();
-                        this.startStory();
-                    },
-                },
-                {
-                    label: 'Com certeza!',
-                    callback: () => {
-                        this.startStory();
-                    },
-                },
-            ],
+            'Sim ❤️',
+            'Com certeza!'
         );
+
+        this.startStory();
     },
 };
