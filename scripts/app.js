@@ -1,6 +1,6 @@
 const app = {
     themeSong: null,
-    sceneDurationInMilliseconds: 2000, // 20s
+    sceneDurationInMilliseconds: 20000, // 20s
 
     sceneIndex: -1,
     scenes: [

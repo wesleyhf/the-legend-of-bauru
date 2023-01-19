@@ -12,6 +12,7 @@
     --subtitle-bg-color: #000;
     --subtitle-txt-color: #fff;
     --font-family: 'Sniglet', sans-serif;
+    --scene-animation-duration: 20s;
 }
 
 body {
@@ -64,7 +65,26 @@ body {
     background-size: 100% auto;
     mix-blend-mode: multiply;
 
-    animation: 20s linear forwards backgroundScrollY;
+    animation: var(--scene-animation-duration) linear forwards backgroundScrollY;
+}
+
+@media screen and (orientation: portrait) {
+    .scene {
+        padding: 2rem 0;
+        background-position: -10% center;
+        background-size: auto 100%;
+        animation: var(--scene-animation-duration) linear forwards backgroundScrollX;
+    }
+}
+
+@keyframes backgroundScrollX {
+    from {
+        background-position: -10% center;
+    }
+
+    to {
+        background-position: 110% center;
+    }
 }
 
 @keyframes backgroundScrollY {
