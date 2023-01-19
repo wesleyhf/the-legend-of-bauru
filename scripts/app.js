@@ -1,5 +1,6 @@
 const app = {
-    themeSong: null,
+    themeSong: new Audio('theme.mp3'),
+    screamSound: new Audio('scream.mp3'),
     sceneDurationInMilliseconds: 20000, // 20s
 
     sceneIndex: -1,
@@ -37,7 +38,7 @@ const app = {
 
     async startStory() {
         this.closeModal();
-        // this.themeSong.play();
+        this.themeSong.play();
 
         // loop through scenes
         const scenesPromise = this.setInterval(() => {
@@ -70,6 +71,7 @@ const app = {
                 {
                     label: 'Não',
                     callback: () => {
+                        this.screamSound.play();
                         alert('whoops');
                     },
                 },
@@ -88,8 +90,6 @@ const app = {
     },
 
     init() {
-        this.themeSong = new Audio('theme.mp3');
-
         this.openModal(
             'Você está pronto para uma aventura?',
             [
