@@ -7,7 +7,7 @@ const app = {
 
     themeSong: new Audio('theme.mp3'),
 
-    sceneDurationInMilliseconds: 1000, // 20s
+    sceneDurationInMilliseconds: 20000, // 20s
 
     sceneIndex: -1,
     scenes: [
@@ -52,7 +52,7 @@ const app = {
 
     async startStory() {
         this.sfxs.listen.play();
-        // this.themeSong.play();
+        this.themeSong.play();
         this.closeConfirmModal();
 
         // loop through scenes
